@@ -13,4 +13,4 @@
 * Supprimer le fichier `version.txt`
 * Fichier `style.css`
 * Fichier `functions.php`
-* Fichier `.github/workflows/release.yml` changer `ocade-minimal` par le nom du dépot.
+* Fichier `.github/workflows/release.yml` changer `ocade-minimal` par le nom du dépot. 
