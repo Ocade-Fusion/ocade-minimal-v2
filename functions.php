@@ -19,7 +19,7 @@ define('OCADE_ICON_1X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION
 define('OCADE_ICON_2X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon-2x.png');
 define('OCADE_ICON_3X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon-3x.png');
 define('OCADE_ICON_4X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon-4x.png');
-define('OCADE_ICON_5X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon-5x.png');2
+define('OCADE_ICON_5X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon-5x.png');
 
 switch (true) {
   case OCADE_IS_THEME:
