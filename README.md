@@ -10,6 +10,7 @@
 ## Comment adapter le code ?
 
 * Le branche du dépôt doit être `master` pas `main`.
-* Fichier `functions.php`
+* Supprimer le fichier `version.txt`
 * Fichier `style.css`
+* Fichier `functions.php`
 * Fichier `.github/workflows/release.yml` changer `ocade-minimal` par le nom du dépot.

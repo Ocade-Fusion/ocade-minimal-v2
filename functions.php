@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) exit;
 
 // Chargement du système de mise à jour
 define("ORGANISATION_GITHUB", 'Ocade-Fusion'); // Nom de l'organisation GitHub
-define("DEPOT_GITHUB", 'ocade-minimal'); // Nom du dépôt GitHub
+define("DEPOT_GITHUB", 'ocade-minimal-v2'); // Nom du dépôt GitHub
 define('OCADE_IS_THEME', true); // True = Thème / False = Plugin
 define('OCADE_IS_CHILD_THEME', false); // Est le thème enfant ?
 

@@ -60,7 +60,7 @@ jobs:
 
       - name: Create Theme ZIP
         run: |
-          zip -r ocade-minimal.zip * .[^.]* -x ".git/*" ".github/*" "README.md" "*.zip"
+          zip -r ocade-minimal-v2.zip * .[^.]* -x ".git/*" ".github/*" "README.md" "*.zip"
 
       - name: Commit Changes
         run: |
@@ -84,7 +84,7 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ocade-minimal.zip
+            ocade-minimal-v2.zip
             version.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
