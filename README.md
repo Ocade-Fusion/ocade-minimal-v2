@@ -1,6 +1,6 @@
 # Template Plugin/Thème Base
 
-* Le dépot du theme ou plugin doit etre public !
+* Le dépot du theme ou plugin doit etre public ! 
 * Ce template à la base pour pouvoir créer un plugin ou un thème Wordpress.
 * Lors du push sur github (branch master), une release est créer avec le numéro de version incrémenté.
 * La release le plugin dans un dossier zip  et un fichier version.txt contenant la dernière version du plugin.
