@@ -7,7 +7,7 @@
 * Un hook (inc/theme-updater.php) permet de rechercher les mise a jour tout les 6H ou alors de refresh celle-ci avec `wp transient delete --all`
 * Il ne reste plus qu'a: `wp core update && wp plugin update --all && wp theme update --all && wp language core update && wp language plugin update --all && wp language theme update --all` pour tout mettre à jour.
 
-## Comment adapter le code ?
+## Comment adapter le code ? 
 
 * Le branche du dépôt doit être `master` pas `main`.
 * Supprimer le fichier `version.txt`
