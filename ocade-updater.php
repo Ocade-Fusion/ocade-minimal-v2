@@ -5,6 +5,7 @@ namespace OcadeMinimal;
 add_filter('site_transient_update_themes', function ($transient) {
     $ORGANISATION_GITHUB = 'Ocade-Fusion';
     $DEPOT_GITHUB = 'ocade-minimal-v2';
+
     $OCADE_THEME_REPO = 'https://github.com/' . $ORGANISATION_GITHUB . '/' . $DEPOT_GITHUB;
     $OCADE_VERSION_URL = 'https://raw.githubusercontent.com/' . $ORGANISATION_GITHUB . '/' . $DEPOT_GITHUB . '/master/version.txt';
     $OCADE_ZIP_URL = $OCADE_THEME_REPO . '/releases/latest/download/' . $DEPOT_GITHUB . '.zip';
@@ -21,6 +22,7 @@ add_filter('site_transient_update_themes', function ($transient) {
     if (!is_object($transient)) $transient = new \stdClass();
 
     $theme = wp_get_theme();
+    if ($theme->parent()) $theme = $theme->parent(); 
     $theme_slug = $theme->get_stylesheet();
     $current_version = $theme->get('Version');
 
@@ -36,7 +38,7 @@ add_filter('site_transient_update_themes', function ($transient) {
 
         $remote_version = trim(wp_remote_retrieve_body($response));
         $remote_version = preg_replace('/[^0-9.]/', '', $remote_version);
-        
+
         if (empty($remote_version)) {
             error_log('La version distante est vide.');
             return $transient;
@@ -62,7 +64,5 @@ add_filter('site_transient_update_themes', function ($transient) {
 });
 
 add_action('upgrader_process_complete', function ($upgrader_object, $options) {
-    if ($options['action'] === 'update' && $options['type'] === 'theme') {
-        delete_transient('ocade-minimal-v2_remote_version');
-    }
+    if ($options['action'] === 'update' && $options['type'] === 'theme') delete_transient('ocade-minimal-v2_remote_version');
 }, 10, 2);
