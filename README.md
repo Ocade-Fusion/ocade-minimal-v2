@@ -1,4 +1,4 @@
-# Template Plugin/Thème Base.
+# Template Plugin/Thème Base
 
 * Le dépot du theme ou plugin doit etre public ! 
 * Ce template à la base pour pouvoir créer un plugin ou un thème Wordpress.
