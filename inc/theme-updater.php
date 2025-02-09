@@ -1,6 +1,5 @@
 <?php
-// Sécurité : empêcher l'accès direct
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) exit; // Sécurité
 
 add_filter('site_transient_update_themes', function ($transient) {
     if (!is_object($transient)) $transient = new stdClass();
@@ -12,10 +11,7 @@ add_filter('site_transient_update_themes', function ($transient) {
     } elseif (defined('OCADE_IS_THEME') && OCADE_IS_THEME) {
         $theme = wp_get_theme();
         $theme_slug = $theme->get_stylesheet();
-    } else {
-        $theme = wp_get_theme();
-        $theme_slug = $theme->get_stylesheet();
-    }
+    } else return $transient; // Ce n'est pas un thème, on ne fait rien
 
     $current_version = $theme->get('Version');
 
@@ -27,13 +23,13 @@ add_filter('site_transient_update_themes', function ($transient) {
 
         // Nettoyer la version pour supprimer les espaces ou caractères invisibles
         $remote_version = trim(wp_remote_retrieve_body($response));
-        $remote_version = preg_replace('/[^0-9.]/', '', $remote_version); // Supprimer les caractères non numériques
+        $remote_version = preg_replace('/[^0-9.]/', '', $remote_version);
         set_transient(OCADE_REMOTE_VERSION, $remote_version, 6 * HOUR_IN_SECONDS);
     }
 
     // Comparaison des versions
     if (version_compare($remote_version, $current_version, '>')) {
-        if (!isset($transient->response)) $transient->response = []; // Assurez-vous que c'est un tableau
+        if (!isset($transient->response)) $transient->response = [];
 
         $transient->response[$theme_slug] = [
             'theme'       => $theme_slug,
@@ -41,12 +37,12 @@ add_filter('site_transient_update_themes', function ($transient) {
             'url'         => OCADE_THEME_REPO,
             'package'     => OCADE_ZIP_URL,
             'icons'       => [
-                'svg'  => OCADE_ICON_SVG_URL,    // URL vers une icône SVG
-                '1x'   => OCADE_ICON_1X_URL,     // URL pour une image standard (150x150 px recommandé)
-                '2x'   => OCADE_ICON_2X_URL,     // URL pour les écrans haute résolution
-                '3x'   => OCADE_ICON_3X_URL,     // URL pour les écrans haute résolution
-                '4x'   => OCADE_ICON_4X_URL,     // URL pour les écrans haute résolution
-                '5x'   => OCADE_ICON_5X_URL,     // URL pour les écrans haute résolution
+                'svg'  => OCADE_ICON_SVG_URL,
+                '1x'   => OCADE_ICON_1X_URL,
+                '2x'   => OCADE_ICON_2X_URL,
+                '3x'   => OCADE_ICON_3X_URL,
+                '4x'   => OCADE_ICON_4X_URL,
+                '5x'   => OCADE_ICON_5X_URL,
             ],
         ];
     }
@@ -54,8 +50,7 @@ add_filter('site_transient_update_themes', function ($transient) {
     return $transient;
 });
 
+// Supprimer le cache de version après mise à jour
 add_action('upgrader_process_complete', function ($upgrader_object, $options) {
-    if ($options['action'] === 'update' && $options['type'] === 'theme') {
-        delete_transient(OCADE_REMOTE_VERSION);
-    }
+    if ($options['action'] === 'update' && $options['type'] === 'theme') delete_transient(OCADE_REMOTE_VERSION);
 }, 10, 2);

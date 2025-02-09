@@ -1,34 +1,13 @@
 <?php
+if (!defined('ABSPATH')) exit; // Sécurité
 
-if (!defined('ABSPATH')) exit;
+// Charger la bonne configuration en fonction du contexte
+require_once __DIR__ . '/inc/config/config-loader.php';
 
-// Chargement du système de mise à jour
-define("ORGANISATION_GITHUB", 'Ocade-Fusion'); // Nom de l'organisation GitHub
-define("DEPOT_GITHUB", 'ocade-minimal-v2'); // Nom du dépôt GitHub
-define('OCADE_IS_THEME', true); // True = Thème / False = Plugin
-define('OCADE_IS_CHILD_THEME', false); // Est le thème enfant ?
+// Charger les constantes générales (évite les redéfinitions)
+require_once __DIR__ . '/inc/constants.php';
 
+// Charger le système de mise à jour
+if (defined('OCADE_IS_THEME') && OCADE_IS_THEME) require_once __DIR__ . '/inc/theme-updater.php';
 
-// Partie dynamique
-define('OCADE_THEME_REPO', 'https://github.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB);
-define('OCADE_VERSION_URL', OCADE_THEME_REPO . '/releases/latest/download/version.txt');
-define('OCADE_ZIP_URL', OCADE_THEME_REPO . '/releases/latest/download/'.DEPOT_GITHUB.'.zip');
-define('OCADE_REMOTE_VERSION', DEPOT_GITHUB . '_remote_version');
-define('OCADE_ICON_SVG_URL', 'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon.svg');
-define('OCADE_ICON_1X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon-1x.png');
-define('OCADE_ICON_2X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon-2x.png');
-define('OCADE_ICON_3X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon-3x.png');
-define('OCADE_ICON_4X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon-4x.png');
-define('OCADE_ICON_5X_URL',  'https://raw.githubusercontent.com/' . ORGANISATION_GITHUB . '/' . DEPOT_GITHUB .'/master/assets/icons/icon-5x.png');
-
-switch (true) {
-  case OCADE_IS_THEME:
-    require_once get_template_directory() . '/inc/theme-updater.php';
-    break;
-  case OCADE_IS_CHILD_THEME:
-    require_once get_stylesheet_directory() . '/inc/theme-updater.php';
-    break;
-  default:
-    require_once plugin_dir_path( __FILE__ ) . 'inc/theme-updater.php';
-    break;
-}
+if (defined('OCADE_IS_PLUGIN') && OCADE_IS_PLUGIN) require_once __DIR__ . '/inc/plugin-updater.php';
