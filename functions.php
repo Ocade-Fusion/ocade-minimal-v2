@@ -16,7 +16,7 @@ add_filter('site_transient_update_themes', function ($transient) {
   	$OCADE_ICON_4X_URL =  'https://raw.githubusercontent.com/' . $ORGANISATION_GITHUB . '/' . $DEPOT_GITHUB . '/master/assets/icons/icon-4x.png';
   	$OCADE_ICON_5X_URL =  'https://raw.githubusercontent.com/' . $ORGANISATION_GITHUB . '/' . $DEPOT_GITHUB . '/master/assets/icons/icon-5x.png';
 
-    if (!is_object($transient)) $transient = new stdClass();
+    if (!is_object($transient)) $transient = new \stdClass();
 
     $theme = wp_get_theme();
     $theme_slug = $theme->get_stylesheet();
