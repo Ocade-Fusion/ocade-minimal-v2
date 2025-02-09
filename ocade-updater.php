@@ -67,3 +67,48 @@ add_filter('site_transient_update_themes', function ($transient) {
 add_action('upgrader_process_complete', function ($upgrader_object, $options) use ($OCADE_REMOTE_VERSION) {
     if ($options['action'] === 'update' && $options['type'] === 'theme') delete_transient($OCADE_REMOTE_VERSION);
 }, 10, 2);
+
+
+
+
+
+
+
+////////////////////// AJOUTER UN BOUTON MISE A JOUR BO /////////////////////////////////////
+function ocade_add_update_refresh_button() {
+    $screen = get_current_screen();
+
+    // Vérifier si on est sur la page des mises à jour
+    if ($screen->id === 'update-core') {
+        echo '<div class="notice notice-info" style="margin-bottom: 15px; padding:0; width:max-content; border-radius:4px; border-left-color:#2271b1;">
+            <form method="post" action="">
+                <input type="hidden" name="ocade_clear_transients" value="1">
+                <button type="submit" class="button" style="padding: 5px; background-color: #2271b1; border-color: transparent; border-radius:0; outline-color: none; color: white; padding-right:1rem; padding-left: 1rem; font-size:1rem;">
+                    Rechercher les mises à jour Ocade
+                </button>
+            </form>
+        </div>';
+    }
+}
+add_action('admin_notices', __NAMESPACE__ . '\ocade_add_update_refresh_button');
+
+// Suppression des transients liés aux mises à jour du thème
+function ocade_process_clear_transients() {
+    if (isset($_POST['ocade_clear_transients'])) {
+        global $wpdb;
+
+        // Récupérer tous les transients liés aux mises à jour des thèmes
+        $transient_names = $wpdb->get_col("SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE '_transient%_remote_version'");
+
+        // Supprimer chaque transient trouvé
+        foreach ($transient_names as $transient_name) {
+            $transient_key = str_replace('_transient_', '', $transient_name);
+            delete_transient($transient_key);
+        }
+
+        // Recharger la page après suppression
+        wp_redirect(admin_url('update-core.php'));
+        exit;
+    }
+}
+add_action('admin_init',  __NAMESPACE__ . '\ocade_process_clear_transients');
