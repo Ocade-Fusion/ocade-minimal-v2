@@ -43,8 +43,8 @@ add_filter('site_transient_update_themes', function ($transient) {
             error_log('La version distante est vide.');
             return $transient;
         }
-
-        set_transient($OCADE_REMOTE_VERSION, $remote_version, 6 * HOUR_IN_SECONDS);
+        if (!empty($remote_version)) set_transient($OCADE_REMOTE_VERSION, $remote_version, 6 * HOUR_IN_SECONDS);
+        else error_log('Impossible de stocker la version distante car elle est vide.');
     }
 
     // Comparaison des versions
